@@ -1,0 +1,61 @@
+using System;
+using System.Windows.Forms;
+using HtmlAgilityPack;
+
+public partial class MainForm : Form
+{
+    private TextBox cityTextBox;
+    private Label timeLabel;
+
+    public MainForm()
+    {
+        InitializeComponent();
+    }
+
+    private void InitializeComponent()
+    {
+        this.cityTextBox = new TextBox();
+        this.timeLabel = new Label();
+
+        this.cityTextBox.Location = new System.Drawing.Point(13, 13);
+        this.cityTextBox.Name = "cityTextBox";
+        this.cityTextBox.Size = new System.Drawing.Size(200, 20);
+        this.cityTextBox.TabIndex = 0;
+        this.cityTextBox.TextChanged += new System.EventHandler(this.CityTextBox_TextChanged);
+
+        this.timeLabel.AutoSize = true;
+        this.timeLabel.Location = new System.Drawing.Point(13, 40);
+        this.timeLabel.Name = "timeLabel";
+        this.timeLabel.Size = new System.Drawing.Size(0, 13);
+        this.timeLabel.TabIndex = 1;
+
+        this.ClientSize = new System.Drawing.Size(284, 261);
+        this.Controls.Add(this.timeLabel);
+        this.Controls.Add(this.cityTextBox);
+        this.Name = "MainForm";
+        this.Text = "City Time";
+    }
+
+    private void CityTextBox_TextChanged(object sender, EventArgs e)
+    {
+        string city = this.cityTextBox.Text;
+        string currentTime = GetTimeInCity(city);
+        this.timeLabel.Text = currentTime;
+    }
+
+    private string GetTimeInCity(string city)
+    {
+        var web = new HtmlWeb();
+        var doc = web.Load("https://sinoptik.ua/погода-" + city);
+
+        var node = doc.DocumentNode.SelectSingleNode("//div[@class='currentDate']");
+        if (node != null)
+        {
+            return node.InnerText.Trim();
+        }
+        else
+        {
+            return "Couldn't get the time ";
+        }
+    }
+}
