@@ -1,0 +1,35 @@
+using System;
+using System.Windows.Forms;
+using System.Diagnostics;
+
+public class TimeTrackerForm : Form
+{
+    private Timer timer;
+    private Stopwatch stopwatch;
+
+    public TimeTrackerForm()
+    {
+        this.Text = "0";
+        stopwatch = Stopwatch.StartNew();
+
+        timer = new Timer();
+        timer.Interval = 1000; 
+        timer.Tick += Timer_Tick;
+        timer.Start();
+    }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        this.Text = stopwatch.ElapsedMilliseconds.ToString();
+
+        DateTime nextBirthday = new DateTime(2024, 5, 4);
+        DateTime nextNewYear = new DateTime(DateTime.Now.Year + 1, 1, 1);
+        TimeSpan timeUntilBirthday = nextBirthday - DateTime.Now;
+        TimeSpan timeUntilNewYear = nextNewYear - DateTime.Now;
+
+        this.Controls.Clear();
+        this.Controls.Add(new Label { Text = $"Till Nik's and ©Ckoreshochechek Production's Bdays: {timeUntilBirthday.Days} days, {timeUntilBirthday.Hours} hours, {timeUntilBirthday.Minutes} mins, {timeUntilBirthday.Seconds} secs", AutoSize = true });
+        this.Controls.Add(new Label { Text = $"You still have Xmas tree, even though it's just : {timeUntilNewYear.Days} days, {timeUntilNewYear.Hours} hours, {timeUntilNewYear.Minutes} mins, {timeUntilNewYear.Seconds} secs  till NY 2025", AutoSize = true, Location = new System.Drawing.Point(0, 20) });
+    }
+
+}
