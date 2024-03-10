@@ -1,0 +1,49 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class DrawingButtonsForm : Form
+{
+    private Point startPoint;
+    private Button currentButton;
+    private int buttonCount = 0;
+
+    public DrawingButtonsForm()
+    {
+        this.Text = "Drawing Buttons ©Ckoreshochechek";
+        this.MouseDown += DrawingButtonsForm_MouseDown;
+        this.MouseMove += DrawingButtonsForm_MouseMove;
+        this.MouseUp += DrawingButtonsForm_MouseUp;
+    }
+
+    private void DrawingButtonsForm_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left)
+        {
+            startPoint = e.Location;
+            currentButton = new Button();
+            currentButton.Location = startPoint;
+            this.Controls.Add(currentButton);
+        }
+    }
+
+    private void DrawingButtonsForm_MouseMove(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left && currentButton != null)
+        {
+            currentButton.Size = new Size(Math.Abs(e.X - startPoint.X), Math.Abs(e.Y - startPoint.Y));
+            currentButton.Location = new Point(Math.Min(e.X, startPoint.X), Math.Min(e.Y, startPoint.Y));
+        }
+    }
+
+    private void DrawingButtonsForm_MouseUp(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Left && currentButton != null)
+        {
+            currentButton.Text = (++buttonCount).ToString();
+            currentButton = null;
+        }
+    }
+
+
+}
