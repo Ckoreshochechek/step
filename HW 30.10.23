@@ -1,0 +1,43 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class BouncingButtonForm : Form
+{
+    private Button bouncingButton;
+    private Random random = new Random();
+
+    public BouncingButtonForm()
+    {
+        this.Text = "Alex are you satisfied with your salary?";
+
+        bouncingButton = new Button();
+        bouncingButton.Text = "Yes";
+        bouncingButton.Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height / 2);
+        bouncingButton.MouseEnter += BouncingButton_MouseEnter;
+
+        this.Controls.Add(bouncingButton);
+    }
+
+    private void BouncingButton_MouseEnter(object sender, EventArgs e)
+    {
+        int newX, newY;
+        do
+        {
+            newX = random.Next(this.ClientSize.Width - bouncingButton.Width);
+            newY = random.Next(this.ClientSize.Height - bouncingButton.Height);
+        }
+        while (IsCursorInsideNewButtonArea(newX, newY));
+
+        bouncingButton.Location = new Point(newX, newY);
+    }
+
+    private bool IsCursorInsideNewButtonArea(int newX, int newY)
+    {
+        Point cursorPosition = this.PointToClient(Cursor.Position);
+        return cursorPosition.X >= newX && cursorPosition.X <= newX + bouncingButton.Width
+            && cursorPosition.Y >= newY && cursorPosition.Y <= newY + bouncingButton.Height;
+    }
+
+
+}
