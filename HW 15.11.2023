@@ -1,0 +1,36 @@
+using System;
+using System.Windows.Forms;
+using System.Drawing;
+
+public class MainForm : Form
+{
+    private Button colorButton;
+    private ColorDialog colorDialog;
+
+    public MainForm()
+    {
+        colorButton = new Button();
+        colorButton.Text = "Pick a color. !!!#069A2E - The BEST!!! (6, 154, 46)";
+        colorButton.Width = 300; 
+        colorButton.Click += (sender, e) => { ChooseColor(); };
+        Controls.Add(colorButton);
+
+        colorDialog = new ColorDialog();
+    }
+
+    private void ChooseColor()
+    {
+        if (colorDialog.ShowDialog() == DialogResult.OK)
+        {
+            this.BackColor = colorDialog.Color;
+        }
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new MainForm());
+    }
+}
