@@ -1,0 +1,29 @@
+using System;
+using System.Windows.Forms;
+
+public class MainForm : Form
+{
+    public MainForm()
+    {
+        var menuStrip = new MenuStrip();
+        this.Controls.Add(menuStrip);
+        var topLevelMenuItem = new ToolStripMenuItem("1");
+        menuStrip.Items.Add(topLevelMenuItem);
+        AddSubMenu(topLevelMenuItem, 2);
+    }
+
+    private void AddSubMenu(ToolStripMenuItem menuItem, int level)
+    {
+        var subMenuItem = new ToolStripMenuItem(level.ToString());
+        menuItem.DropDownItems.Add(subMenuItem);
+        subMenuItem.MouseHover += (sender, e) => AddSubMenu(subMenuItem, level + 1);
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new MainForm());
+    }
+}
