@@ -1,0 +1,70 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Timers;
+
+public class MainForm : Form
+{
+    private Button clickButton;
+    private int clickCount = 0;
+    private int maxClickCount = 0;
+    private System.Timers.Timer timer;
+    private System.Timers.Timer colorTimer;
+    private float hue = 0;
+
+    public MainForm()
+    {
+        clickButton = new Button();
+        clickButton.Text = "Click on me!";
+        clickButton.Click += (sender, e) => { clickCount++; };
+        Controls.Add(clickButton);
+
+        timer = new System.Timers.Timer(20000);
+        timer.Elapsed += OnTimedEvent;
+        timer.AutoReset = false;
+        timer.Enabled = true;
+
+        colorTimer = new System.Timers.Timer(100);
+        colorTimer.Elapsed += OnColorTimedEvent;
+        colorTimer.AutoReset = true;
+        colorTimer.Enabled = true;
+    }
+
+    private void OnTimedEvent(Object source, ElapsedEventArgs e)
+    {
+        if (clickCount > maxClickCount)
+        {
+            maxClickCount = clickCount;
+        }
+
+        MessageBox.Show($"You did {clickCount} clicks. Max clicks was: {maxClickCount}");
+        clickCount = 0;
+        timer.Enabled = true;
+    }
+
+    private void OnColorTimedEvent(Object source, ElapsedEventArgs e)
+    {
+        hue += 0.01f;
+        if (hue > 1)
+        {
+            hue = 0;
+        }
+
+        this.Invoke((MethodInvoker)delegate {
+            this.BackColor = ColorFromHue(hue);
+        });
+    }
+
+    private Color ColorFromHue(float hue)
+    {
+        return Color.FromArgb((int)(hue * 255), 127, 127);
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new MainForm());
+    }
+}
