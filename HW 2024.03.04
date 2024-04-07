@@ -1,0 +1,87 @@
+using System;
+using System.Windows.Forms;
+using System.Threading;
+using System.Drawing;
+
+public class HorseRace : Form
+{
+    private Button startButton;
+    private ProgressBar[] horseBars = new ProgressBar[5];
+    private Thread[] horseThreads = new Thread[5];
+    private Random random = new Random();
+    private Label[] horseLabels = new Label[5];
+    private Color[] barColors = { Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.Black };
+    private int[] horsePlaces = new int[5];
+    private int placeCounter = 1;
+    private int slowHorseIndex;
+
+    public HorseRace()
+    {
+        this.Text = "©Ckoreshochechek Production";
+        startButton = new Button { Text = "You'll regret it if you click here", Left = 50, Top = 20, Width = 200 };
+        startButton.Click += StartButton_Click;
+
+        for (int i = 0; i < horseBars.Length; i++)
+        {
+            horseBars[i] = new ProgressBar { Left = 50, Top = 50 + (i * 30), Width = 200, ForeColor = barColors[i] };
+            horseLabels[i] = new Label { Text = $"Horse {i + 1}", Left = 10, Top = 50 + (i * 30) };
+            Controls.Add(horseBars[i]);
+            Controls.Add(horseLabels[i]);
+        }
+
+        Controls.Add(startButton);
+    }
+
+    private void StartButton_Click(object sender, EventArgs e)
+    {
+        slowHorseIndex = random.Next(horseThreads.Length); 
+
+        for (int i = 0; i < horseThreads.Length; i++)
+        {
+            int index = i;
+            horseThreads[i] = new Thread(() =>
+            {
+                for (int j = 0; j <= 100; j++)
+                {
+                    Invoke(new Action(() => horseBars[index].Value = j));
+                    if (index == slowHorseIndex)
+                    {
+                        Thread.Sleep(120000 / 100); 
+                    }
+                    else
+                    {
+                        Thread.Sleep(random.Next(50, 200));
+                    }
+                }
+                horsePlaces[index] = placeCounter++;
+                if (placeCounter > 5)
+                {
+                    Invoke(new Action(() => ShowResults()));
+                }
+            });
+
+            horseThreads[i].Start();
+        }
+
+        startButton.Enabled = false;
+    }
+
+    private void ShowResults()
+    {
+        Form resultsForm = new Form { Text = "Results for the race" };
+        for (int i = 0; i < horsePlaces.Length; i++)
+        {
+            Label resultLabel = new Label { Text = $"Horse #{i + 1} took {horsePlaces[i]} place", Left = 10, Top = 10 + (i * 20) };
+            resultsForm.Controls.Add(resultLabel);
+        }
+        resultsForm.Show();
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new HorseRace());
+    }
+}
