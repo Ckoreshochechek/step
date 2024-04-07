@@ -1,0 +1,106 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace TextAnalyzerApp
+{
+    public partial class MainForm : Form
+    {
+        private TextBox txtInput;
+        private Button btnAnalyze;
+        private Label lblReport;
+        private Label lblProgramTitle;
+
+        public MainForm()
+        {
+            InitializeUI();
+        }
+
+        private void InitializeUI()
+        {
+            lblProgramTitle = new Label
+            {
+                Location = new System.Drawing.Point(10, 10),
+                AutoSize = true,
+                Text = "©Ckoreshochechek Production",
+            };
+
+            txtInput = new TextBox
+            {
+                Location = new System.Drawing.Point(10, 50),
+                Size = new System.Drawing.Size(300, 100)
+            };
+
+            btnAnalyze = new Button
+            {
+                Location = new System.Drawing.Point(10, 160),
+                Text = "Analize"
+            };
+            btnAnalyze.Click += btnAnalyze_Click;
+
+            lblReport = new Label
+            {
+                Location = new System.Drawing.Point(10, 200),
+                AutoSize = true
+            };
+
+            Controls.Add(lblProgramTitle);
+            Controls.Add(txtInput);
+            Controls.Add(btnAnalyze);
+            Controls.Add(lblReport);
+        }
+
+        private void btnAnalyze_Click(object sender, EventArgs e)
+        {
+            string inputText = txtInput.Text;
+
+            Task.Run(() =>
+            {
+                int sentenceCount = CountSentences(inputText);
+                int charCount = inputText.Length;
+                int wordCount = CountWords(inputText);
+                int questionCount = CountQuestionSentences(inputText);
+                int exclamationCount = CountExclamationSentences(inputText);
+
+                this.Invoke(new Action(() =>
+                {
+                    lblReport.Text = $"Sentences : {sentenceCount}\n" +
+                                     $"Symbols: {charCount}\n" +
+                                     $"Words: {wordCount}\n" +
+                                     $"Qustion sentences : {questionCount}\n" +
+                                     $"Exclamatory sentences: {exclamationCount}";
+                }));
+            });
+        }
+
+        private int CountSentences(string text)
+        {
+            char[] sentenceSeparators = { '.', '?', '!' };
+            return text.Split(sentenceSeparators, StringSplitOptions.RemoveEmptyEntries).Length;
+        }
+
+        private int CountWords(string text)
+        {
+            return text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
+        }
+
+        private int CountQuestionSentences(string text)
+        {
+            return text.Count(c => c == '?');
+        }
+
+        private int CountExclamationSentences(string text)
+        {
+            return text.Count(c => c == '!');
+        }
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+        }
+    }
+}
