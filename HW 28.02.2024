@@ -1,0 +1,20 @@
+using System;
+using System.Diagnostics;
+
+namespace ParentChildProcess
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string childProcessPath = "C:\\Users\\User\\Desktop\\child.exe";
+            Process childProcess = new Process();
+            childProcess.StartInfo.FileName = childProcessPath;
+            childProcess.Start();
+            childProcess.WaitForExit();
+            int exitCode = childProcess.ExitCode;
+            Console.WriteLine($"The child process ended like: {exitCode}");
+            Environment.Exit(exitCode);
+        }
+    }
+}
