@@ -1,0 +1,21 @@
+using System;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+namespace MyInfoApp
+{
+    class Program
+    {
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
+
+        static void Main()
+        {
+            MessageBox(IntPtr.Zero, "Hi, It's Nik, the guy who made this program.", "©Ckoreshochechek Production", 0);
+            MessageBox(IntPtr.Zero, "IDK, what to tell about myself. I'm almost 18 yo.", "©Ckoreshochechek Production", 0);
+            MessageBox(IntPtr.Zero, "I was born in Odessa, Ukraine, but due to the war I moved to Kalundborg, Denmark.", "©Ckoreshochechek Production", 0);
+
+            Application.Exit();
+        }
+    }
+}
