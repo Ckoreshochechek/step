@@ -1,1 +1,108 @@
+using System;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
+
+public class PrimeNumberApp : Form
+{
+    private Label greetingLabel;
+    private Mutex mutex = new Mutex();
+    private Random random = new Random();
+
+    public PrimeNumberApp()
+    {
+        this.Text = "©Ckoreshochechek Production";
+        greetingLabel = new Label { Text = "Hi, evrything is alredy done. check C:\\Users\\User\\source\\repos\\WindowsFormsApp15\\WindowsFormsApp15\\bin\\Debug", Left = 10, Top = 10 };
+        Controls.Add(greetingLabel);
+    }
+
+    public void RunThreads()
+    {
+        Thread thread1 = new Thread(GenerateRandomNumbers);
+        Thread thread2 = new Thread(ExtractPrimeNumbers);
+        Thread thread3 = new Thread(ExtractPrimeNumbersEndingInSeven);
+
+        thread1.Start();
+        thread2.Start();
+        thread3.Start();
+    }
+
+    private void GenerateRandomNumbers()
+    {
+        mutex.WaitOne();
+        using (StreamWriter sw = new StreamWriter("randomNumbers.txt"))
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                sw.WriteLine(random.Next(1, 10000));
+            }
+        }
+        mutex.ReleaseMutex();
+    }
+
+    private void ExtractPrimeNumbers()
+    {
+        mutex.WaitOne();
+        using (StreamReader sr = new StreamReader("randomNumbers.txt"))
+        using (StreamWriter sw = new StreamWriter("primeNumbers.txt"))
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                int number = int.Parse(line);
+                if (IsPrime(number))
+                {
+                    sw.WriteLine(number);
+                }
+            }
+        }
+        mutex.ReleaseMutex();
+    }
+
+    private void ExtractPrimeNumbersEndingInSeven()
+    {
+        mutex.WaitOne();
+        using (StreamReader sr = new StreamReader("primeNumbers.txt"))
+        using (StreamWriter sw = new StreamWriter("sevens.txt"))
+        {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                int number = int.Parse(line);
+                if (number % 10 == 7)
+                {
+                    sw.WriteLine(number);
+                }
+            }
+        }
+        mutex.ReleaseMutex();
+    }
+
+    private bool IsPrime(int number)
+    {
+        if (number <= 1) return false;
+        if (number == 2) return true;
+        if (number % 2 == 0) return false;
+
+        var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+        for (int i = 3; i <= boundary; i += 2)
+        {
+            if (number % i == 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        PrimeNumberApp app = new PrimeNumberApp();
+        app.RunThreads();
+        Application.Run(app);
+    }
+}
 
