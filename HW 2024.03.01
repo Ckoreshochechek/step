@@ -1,0 +1,70 @@
+using System;
+using System.Windows.Forms;
+using System.Threading;
+
+public class PrimeNumberApp : Form
+{
+    private TextBox lowerLimitBox;
+    private TextBox upperLimitBox;
+    private Button startButton;
+    private ListBox primeNumbersBox;
+
+    public PrimeNumberApp()
+    {
+        Text = "©Ckoreshochechek Production";
+        lowerLimitBox = new TextBox { Left = 50, Top = 20, Width = 100 };
+        upperLimitBox = new TextBox { Left = 50, Top = 50, Width = 100 };
+        startButton = new Button { Text = "Start", Left = 50, Top = 80, Width = 100 };
+        primeNumbersBox = new ListBox { Left = 50, Top = 120, Width = 100 };
+
+        startButton.Click += StartButton_Click;
+
+        Controls.Add(lowerLimitBox);
+        Controls.Add(upperLimitBox);
+        Controls.Add(startButton);
+        Controls.Add(primeNumbersBox);
+    }
+
+    private void StartButton_Click(object sender, EventArgs e)
+    {
+        int lowerLimit = string.IsNullOrEmpty(lowerLimitBox.Text) ? 0 : int.Parse(lowerLimitBox.Text);
+        int upperLimit = string.IsNullOrEmpty(upperLimitBox.Text) ? int.MaxValue : int.Parse(upperLimitBox.Text);
+
+        Thread thread = new Thread(() =>
+        {
+            for (int i = lowerLimit; i <= upperLimit; i++)
+            {
+                if (IsPrime(i))
+                {
+                    Invoke(new Action(() => primeNumbersBox.Items.Add(i)));
+                }
+            }
+        });
+
+        thread.Start();
+    }
+
+    static bool IsPrime(int number)
+    {
+        if (number <= 1) return false;
+        if (number == 2) return true;
+        if (number % 2 == 0) return false;
+
+        var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+        for (int i = 3; i <= boundary; i += 2)
+        {
+            if (number % i == 0) return false;
+        }
+
+        return true;
+    }
+
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new PrimeNumberApp());
+    }
+}
