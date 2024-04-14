@@ -1,0 +1,28 @@
+using System;
+using System.Windows;
+using System.Windows.Controls;
+
+public partial class MainWindow : Window
+{
+    private int _clickCount = 0;
+
+    public MainWindow()
+    {
+        Button button = new Button
+        {
+            Content = "Don't click me, you'll regret it",
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        button.Click += Button_Click;
+        this.Content = button;
+        this.Title = "Hi. ©Ckoreshochechek Production";
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        _clickCount++;
+        MessageBox.Show($"You clicked {_clickCount} times");
+    }
+}
