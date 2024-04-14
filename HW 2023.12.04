@@ -1,0 +1,45 @@
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
+
+
+namespace BrickRoadSign
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            DrawBrickSign();
+        }
+
+        private void DrawBrickSign()
+        {
+            Canvas canvas = new Canvas();
+            canvas.Width = 200;
+            canvas.Height = 200;
+
+            Rectangle brick = new Rectangle();
+            brick.Width = 150;
+            brick.Height = 100;
+            brick.Fill = Brushes.Red;
+            brick.Stroke = Brushes.Black;
+            brick.StrokeThickness = 2;
+
+            canvas.Children.Add(brick);
+
+            Rectangle reflection = new Rectangle();
+            reflection.Width = brick.Width;
+            reflection.Height = brick.Height / 2;
+            reflection.Fill = Brushes.White; 
+            reflection.Opacity = 0.5; 
+            reflection.RenderTransform = new ScaleTransform(1, -1); 
+            Canvas.SetTop(reflection, brick.Height / 2); 
+
+            canvas.Children.Add(reflection);
+
+            this.Content = canvas;
+        }
+    }
+}
