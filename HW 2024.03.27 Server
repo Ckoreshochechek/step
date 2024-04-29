@@ -1,0 +1,26 @@
+public class Game
+{
+    private static string[] elements = new string[]
+    {
+        "Rock ", "Paper", "Scissors", "Gun", "Lightning", "Devil", "Dragon", "Water", "Air", "Sponge", "Wolf", "Tree", "Human", "Snake", "Fire"
+    };
+
+    public static int Compare(string player1, string player2)
+    {
+        int index1 = Array.IndexOf(elements, player1);
+        int index2 = Array.IndexOf(elements, player2);
+
+        if (index1 == index2)
+        {
+            return 0; // draw game
+        }
+        else if ((index1 + 1) % elements.Length == index2)
+        {
+            return 1; // plaayer #1 won
+        }
+        else
+        {
+            return -1; // иplayer #2 won
+        }
+    }
+}
