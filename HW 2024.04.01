@@ -1,0 +1,38 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program
+{
+    static readonly HttpClient client = new HttpClient();
+
+    static async Task Main(string[] args)
+    {
+        Console.WriteLine("What do u wanna find again ?:");
+        string query = Console.ReadLine();
+
+        Console.WriteLine("Where to look? (1 - Google, 2 - Bing, 3 - Both):");
+        string choice = Console.ReadLine();
+
+        if (choice == "1" || choice == "3")
+        {
+            Console.WriteLine("\nYour f.king results:");
+            await FetchSearchResults("https://www.googleapis.com/customsearch/v1?key=ВАШ_КЛЮЧ&cx=ВАШ_КЛЮЧ&query=" + query);
+        }
+
+        if (choice == "2" || choice == "3")
+        {
+            Console.WriteLine("\nYour f.king results:");
+            await FetchSearchResults("https://api.bing.microsoft.com/v7.0/search?q=" + query + "&count=10&offset=0&mkt=en-us&safesearch=Moderate");
+        }
+    }
+
+    static async Task FetchSearchResults(string url)
+    {
+        HttpResponseMessage response = await client.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        Console.WriteLine(responseBody);
+    }
+}
