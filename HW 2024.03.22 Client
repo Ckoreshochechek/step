@@ -1,0 +1,21 @@
+using System;
+using System.Net.Sockets;
+using System.Text;
+
+class Client
+{
+    static void Main(string[] args)
+    {
+        UdpClient udpClient = new UdpClient();
+        udpClient.Connect("localhost", 8080);
+
+        Byte[] data = Encoding.ASCII.GetBytes("Price for CPU, which you dont deserve");
+
+        udpClient.Send(data, data.Length);
+
+        var remoteEP = new IPEndPoint(IPAddress.Any, 0);
+        var responseData = udpClient.Receive(ref remoteEP);
+        var responseMessage = Encoding.ASCII.GetString(responseData);
+        Console.WriteLine("Received: {0}", responseMessage);
+    }
+}
