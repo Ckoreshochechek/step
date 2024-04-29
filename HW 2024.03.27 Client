@@ -1,0 +1,17 @@
+string player1Choice = ... 
+string player2Choice = ... 
+
+int result = Game.Compare(player1Choice, player2Choice);
+
+if (result == 0)
+{
+    Console.WriteLine("Draw game!");
+}
+else if (result == 1)
+{
+    Console.WriteLine("Player #1 WON!");
+}
+else
+{
+    Console.WriteLine("Player #2 WON!");
+}
