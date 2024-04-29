@@ -1,0 +1,41 @@
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Collections.Generic;
+
+class Server
+{
+    private static Dictionary<string, int> clientRequests = new Dictionary<string, int>();
+
+    static void Main(string[] args)
+    {
+        UdpClient udpServer = new UdpClient(8080);
+
+        while (true)
+        {
+            var remoteEP = new IPEndPoint(IPAddress.Any, 8080);
+            var data = udpServer.Receive(ref remoteEP);
+            var message = Encoding.ASCII.GetString(data);
+            Console.WriteLine("Received: {0} from {1}", message, remoteEP.ToString());
+
+            if (clientRequests.ContainsKey(remoteEP.ToString()))
+            {
+                clientRequests[remoteEP.ToString()]++;
+                if (clientRequests[remoteEP.ToString()] > 10)
+                {
+                    var response = Encoding.ASCII.GetBytes("Too many requests");
+                    udpServer.Send(response, response.Length, remoteEP);
+                    continue;
+                }
+            }
+            else
+            {
+                clientRequests.Add(remoteEP.ToString(), 1);
+            }
+
+            var responseData = Encoding.ASCII.GetBytes(message);
+            udpServer.Send(responseData, responseData.Length, remoteEP);
+        }
+    }
+}
