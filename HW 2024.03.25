@@ -1,0 +1,56 @@
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Collections.Generic;
+
+public class Server
+{
+    private UdpClient udpServer;
+    private IPEndPoint endPoint;
+    private Dictionary<string, int> clientRequests;
+
+    public Server()
+    {
+        udpServer = new UdpClient(8080);
+        endPoint = new IPEndPoint(IPAddress.Any, 8080);
+        clientRequests = new Dictionary<string, int>();
+    }
+
+    public void Start()
+    {
+        while (true)
+        {
+            var clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
+            var clientRequestData = udpServer.Receive(ref clientEndPoint);
+            var clientRequest = Encoding.ASCII.GetString(clientRequestData);
+
+            if (!clientRequests.ContainsKey(clientEndPoint.ToString()))
+            {
+                clientRequests[clientEndPoint.ToString()] = 0;
+            }
+
+            if (clientRequests[clientEndPoint.ToString()] >= 10)
+            {
+                var response = "You reached the limit of max requests per hour.";
+                udpServer.Send(Encoding.ASCII.GetBytes(response), response.Length, clientEndPoint);
+                continue;
+            }
+
+            clientRequests[clientEndPoint.ToString()]++;
+
+            var response = $"Prise {clientRequest}: 758 DKK";
+
+            udpServer.Send(Encoding.ASCII.GetBytes(response), response.Length, clientEndPoint);
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Server server = new Server();
+        server.Start();
+    }
+}
