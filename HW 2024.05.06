@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruits by ©Ckoreshochechek Production</title>
+    <style>
+        ol {
+            background-color: #b3d9b3;
+            padding: 20px;
+            width: 200px;
+            list-style-type: decimal;
+        }
+        li {
+            background-color: #069a2f;
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        li:nth-child(3) {
+            background-color: #005c20;
+        }
+    </style>
+</head>
+<body>
+
+<h2>List of fruits you will never be able to afford:</h2>
+<h5>(acording to Nik's and ©Ckoreshochechek Production's researches)</h5>
+<ol>
+    <li>Yubari King Melon</li>
+    <li>Densuke Watermelon</li>
+    <li>Ruby Roman Grapes</li>
+    <li>Taiyo no Tamago Mangoes</li>
+    <li>Pineapples from Heligan</li>
+</ol>
+
+</body>
+</html>
