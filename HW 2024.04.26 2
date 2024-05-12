@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fool game by ©Ckoreshochechek Production</title>
+    <style>
+        .card {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Player 1:</h2>
+<div class="card">♠ 2</div> <div class="card" style="color:#069A2E;">♥ 9</div> <div class="card" style="color:#069A2E;">♦ 6</div> <div class="card">♠ A</div> <div class="card">♠ Q</div> <div class="card">♠ J</div>
+
+<h2>Player 2:</h2>
+<div class="card" style="color:#069A2E;">♥ 3</div> <div class="card" style="color:#069A2E;">♦ A</div> <div class="card">♠ 10</div> <div class="card">♠ K</div> <div class="card" style="color:#069A2E;">♥ 8</div> <div class="card" style="color:#069A2E;">♦ 3</div>
+
+</body>
+</html>
