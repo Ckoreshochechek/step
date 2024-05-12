@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .product {
+            border: 1px solid black;
+            width: 100px;
+            text-align: center;
+            margin: 5px;
+            padding: 10px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="products">
+        <div class="product">
+            <img src="https://media.istockphoto.com/id/1189117779/vector/vector-illustration-of-a-funny-red-pepper-in-cartoon-style.jpg?s=612x612&w=0&k=20&c=BjsiPp07wSygWR79his_Wiv3JWZeGzlzh-hhWD22a9E=">
+            <p>Pepper</p>
+        </div>
+        <div class="product">
+            <img src="https://preview.free3d.com/img/2019/12/2201663845720655265/o7vsbv3l.jpg">
+            <p>Buckwheat</p>
+        </div>
+       <div class="product">
+            <img src="https://www.creativefabrica.com/wp-content/uploads/2021/09/06/Apple-Graphics-16865692-1.jpg">
+            <p>Apple</p>
+        </div>
+	<div class="product">
+            <img src="https://www.creativefabrica.com/wp-content/uploads/2021/09/11/Tomato-Graphics-17134343-1.jpg">
+            <p>Tomato</p>
+        </div>
+	<div class="product">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/007/999/671/small/cheese-grater-tool-kitchenware-cheese-topping-food-symbol-cartoon-illustration-vector.jpg">
+            <p>Grated cheese</p>
+        </div>
+	<div class="product">
+            <img src="https://p.productioncrate.com/stock-hd/graphics/print-design/becon-basic_prev_lg.png">
+            <p>Bacon</p>
+        </div>
+	<div class="product">
+            <img src="https://img.freepik.com/free-vector/egg-cartoon-style_78370-1042.jpg?size=338&ext=jpg&ga=GA1.1.1369675164.1715472000&semt=sph">
+            <p>Eggs (IDK how many)</p>
+        </div>
+	<div class="product">
+            <img src="https://www.fakta.eu/Services/ImageHandler.ashx?imgId=906284&sizeId=0&RevisionNo=11_0">
+            <p>🇩🇰 Kærnemælk (sth like "kefir")</p>
+        </div>
+	<div class="product">
+            <img src="https://t4.ftcdn.net/jpg/02/13/63/27/360_F_213632763_ewHQhkpUQstgvxIVXCKqLMEPo4LkCirh.jpg">
+            <p>Salad</p>
+        </div>
+	<div class="product">
+            <img src="https://img.freepik.com/premium-vector/ukrainian-borscht-vector-illustration-traditional-ukrainian-soup_787461-1736.jpg">
+            <p>Borsch</p>
+        </div>
+
+    <p>... That's all ©Ckoreshochechek Production has in the fridge ...</p>
+</body>
+</html>
