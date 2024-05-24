@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Impact, sans-serif;
+  }
+  .sidebar {
+    height: 100%;
+    width: 50px; 
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s; 
+    padding-top: 20px;
+  }
+  .sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #069a2e;
+    display: block;
+    transition: 0.3s;
+  }
+  .sidebar a:hover {
+    color: #f1f1f1;
+    background-color: #ffffff; 
+  }
+  .sidebar:hover {
+    width: 375px; 
+  }
+  .main-content {
+    margin-left: 50px; 
+    padding: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="#">Home</a>
+  <a href="#">IDK</a>
+  <a href="#">IDK</a>
+  <a href="#">©Ckoreshochechek Production</a>
+</div>
+
+<div class="main-content">
+  <h2>Hidden side bar</h2>
+  <p>Hold your cursor on the bar to see it sliding</p>
+</div>
+
+</body>
+</html>
