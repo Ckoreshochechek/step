@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .row {
+    display: flex;
+  }
+  .column {
+    flex: 1; 
+    padding: 10px;
+    box-sizing: border-box; 
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+    <h2>Gdansk</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Calle_Dlugie_Pobrzeze%2C_Gdansk%2C_Polonia%2C_2013-05-20%2C_DD_06.jpg/1200px-Calle_Dlugie_Pobrzeze%2C_Gdansk%2C_Polonia%2C_2013-05-20%2C_DD_06.jpg">
+    <p>Poland</p>
+  </div>
+  <div class="column" style="background-color:#bbb;">
+    <h2>Malmö</h2>
+    <img src="https://s3-eu-north-1.amazonaws.com/py3.visitsweden.com/original_images/Malmo_220922-3461_IBSweb.jpg">
+    <p>Sweden</p>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+    <h2>København</h2>
+    <img src="https://www.ambassadorcruiseline.com/site/assets/files/2121/copenhagen_canal_view.1125x0-is.jpg">
+    <p>Denmark</p>
+  </div>
+  <div class="column" style="background-color:#aaa;">
+    <h2>Aarhus</h2>
+    <img src="https://aarhus.dk/media/0g0ngyko/julius-yls-nxvmrwggcfg-unsplash.jpg?width=900&height=600&format=jpg&quality=90&v=1d9e48648b76770">
+    <p>Denmark</p>
+  </div>
+</div>
+
+</body>
+</html>
