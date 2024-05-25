@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>©Ckoreshochechek Production</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  body {
+    background-color: #343a40;
+    color: white;
+  }
+  .task-card {
+    background-color: #495057;
+    margin-bottom: 1rem;
+  }
+  .task-header {
+    background-color: #6c757d;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+  }
+  .task-body {
+    padding: 1rem;
+  }
+  .badge-status {
+    float: right;
+  }
+</style>
+</head>
+<body>
+<div class="container mt-5">
+  <div class="mb-4">
+    <span class="badge badge-pill badge-success">Checked</span>
+    <span class="badge badge-pill badge-warning">Prosessing</span>
+    <span class="badge badge-pill badge-danger">Expired</span>
+  </div>
+
+  <div class="task-card">
+    <h5 class="task-header">Math</h5>
+    <div class="task-body">
+      
+      <p class="task-title">Chapter: Fractions</p>
+      <p class="task-date">Date: 25.05.2024</p>
+      <button class="btn btn-primary btn-sm">Upload</button>
+      <button class="btn btn-secondary btn-sm">Reload</button>
+      <button class="btn btn-danger btn-sm">Delete</button>
+      <button class="btn btn-info btn-sm">Download</button>
+      
+      <span class="badge badge-pill badge-success">5</span>
+    </div>
+  </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
