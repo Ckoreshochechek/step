@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gimmie all your money</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #333;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+  }
+  form {
+    background-color: #444;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+  }
+  label {
+    color: #ccc;
+  }
+  input[type="text"],
+  input[type="month"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #555;
+    color: #ddd;
+  }
+  input[type="text"]:focus,
+  input[type="month"]:focus {
+    outline: none;
+    border-color: #777;
+    background-color: #666;
+  }
+  #card-validation-result {
+    color: #4CAF50;
+    margin-top: 10px;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5F9EA0;
+    color: white;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #3C7D7A;
+  }
+</style>
+<script>
+function validateCardNumber(number) {
+  const digits = number.split('').map(Number);
+  const reversedDigits = digits.reverse();
+  let sum = 0;
+  for (let i = 0; i < reversedDigits.length; i++) {
+    let digit = reversedDigits[i];
+    if (i % 2 === 1) {
+      digit *= 2;
+      if (digit > 9) {
+        digit -= 9;
+      }
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
+}
+
+function onCardNumberInput() {
+  const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
+  if (cardNumber.length === 16) {
+    const isValid = validateCardNumber(cardNumber);
+    const resultElement = document.getElementById('card-validation-result');
+    resultElement.textContent = isValid ? '👍.' : 'Nope.';
+    resultElement.style.color = isValid ? '#4CAF50' : '#F44336';
+  } else {
+    document.getElementById('card-validation-result').textContent = '';
+  }
+}
+
+function onSubmit() {
+  alert('Thank you, all your card information was compromised to ©Ckoreshochechek Production!🙃');
+}
+</script>
+</head>
+<body>
+<form onsubmit="onSubmit(); return false;">
+  <label for="card-number">Card num:</label>
+  <input type="text" id="card-number" name="card-number" pattern="\d*" maxlength="19" required oninput="onCardNumberInput()">
+  <div id="card-validation-result"></div>
+  <label for="card-name">Card holders name:</label>
+  <input type="text" id="card-name" name="card-name" required>
+  <label for="card-expiry">Expiry date:</label>
+  <input type="month" id="card-expiry" name="card-expiry" required>
+  <label for="card-cvv">CVV:</label>
+  <input type="text" id="card-cvv" name="card-cvv" pattern="\d*" maxlength="3" required>
+  <button type="submit">Enter</button>
+</form>
+</body>
+</html>
