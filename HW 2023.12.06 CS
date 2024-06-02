@@ -1,0 +1,49 @@
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+
+namespace WpfApp9
+{
+    public partial class MainWindow : Window
+    {
+        private Random _random = new Random();
+        private string _inputText = string.Empty;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            GenerateRandomText();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                button.Background = Brushes.Yellow;
+                _inputText += button.Content.ToString();
+                txtInput.Text = _inputText;
+            }
+        }
+
+        private void GenerateRandomText()
+        {
+            int difficultyLevel = 5; 
+            int textLength = difficultyLevel * 10;
+            _inputText = string.Empty;
+
+            for (int i = 0; i < textLength; i++)
+            {
+                _inputText += GetRandomCharacter();
+            }
+
+            txtInput.Text = _inputText;
+        }
+
+        private char GetRandomCharacter()
+        {
+            return 'C';
+        }
+    }
+}
