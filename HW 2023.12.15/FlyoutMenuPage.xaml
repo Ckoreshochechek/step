@@ -1,0 +1,24 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlyoutPageNavigation.FlyoutMenuPage">
+    <StackLayout BackgroundColor="#2f2f2f">
+        <Label Text="Telegram"
+               FontSize="24"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <CollectionView ItemsSource="{Binding FlyoutItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="{Binding Icon}"
+                               WidthRequest="24"
+                               HeightRequest="24" />
+                        <Label Text="{Binding Title}"
+                               FontSize="18"
+                               VerticalOptions="Center" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentView>
