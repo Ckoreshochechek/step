@@ -1,0 +1,70 @@
+using static System.Net.Mime.MediaTypeNames;
+using System.ComponentModel;
+using System.Windows.Controls;
+using System.Windows.Media.Media3D;
+using System.Windows;
+
+public class CalculatorModel
+{
+    public int Number1 { get; set; }
+    public int Number2 { get; set; }
+    public int Result { get; set; }
+}
+
+public abstract class ViewModelBase : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+public class CalculatorViewModel : ViewModelBase
+{
+    private CalculatorModel _model;
+
+    public CalculatorViewModel()
+    {
+        _model = new CalculatorModel();
+    }
+
+    public int Number1
+    {
+        get { return _model.Number1; }
+        set
+        {
+            _model.Number1 = value;
+            OnPropertyChanged("Number1");
+            CalculateResult();
+        }
+    }
+
+    public int Number2
+    {
+        get { return _model.Number2; }
+        set
+        {
+            _model.Number2 = value;
+            OnPropertyChanged("Number2");
+            CalculateResult();
+        }
+    }
+
+    public int Result
+    {
+        get { return _model.Result; }
+        private set
+        {
+            _model.Result = value;
+            OnPropertyChanged("Result");
+        }
+    }
+
+    private void CalculateResult()
+    {
+        Result = Number1 + Number2;
+    }
+}
+
