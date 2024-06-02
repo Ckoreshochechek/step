@@ -1,0 +1,43 @@
+<Window x:Class="WpfApp9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="©Ckoreshochechek Production" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Button Name="QButton" Content="Q" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="WButton" Content="W" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="EButton" Content="E" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="RButton" Content="R" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="TButton" Content="T" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="YButton" Content="Y" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="UButton" Content="U" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="IButton" Content="I" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="OButton" Content="O" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="PButton" Content="P" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="ÅButton" Content="Å" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="AButton" Content="A" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="SButton" Content="S" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="DButton" Content="D" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="FButton" Content="F" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="GButton" Content="G" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="HButton" Content="H" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="JButton" Content="J" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="KButton" Content="K" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="LButton" Content="L" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="ÆButton" Content="Æ" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="ØButton" Content="Ø" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="ZButton" Content="Z" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="XButton" Content="X" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="CButton" Content="C" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="VButton" Content="V" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="BButton" Content="B" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="NButton" Content="N" Width="50" Height="50" Click="Button_Click"/>
+            <Button Name="MButton" Content="M" Width="50" Height="50" Click="Button_Click"/>
+        </StackPanel>
+        <TextBox Name="txtInput" Grid.Row="1" Margin="5"/>
+    </Grid>
+</Window>
