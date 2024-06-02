@@ -1,0 +1,51 @@
+private readonly MainViewModel ViewModel = new();
+private enum Row { TextEntry }
+private enum Column { Description, Input }
+public MainPage()
+{
+    Content = new Grid
+    {
+        RowDefinitions = Rows.Define(
+            (Row.TextEntry, 36)),
+
+        ColumnDefinitions = Columns.Define(
+            (Column.Description, 120),
+            (Column.Input, 240))
+    };
+
+    Content.Children.Add(new Label
+    {
+        Text = "Description:",
+        Grid.Row = 0,
+        Grid.Column = Column.Description
+    });
+
+    Content.Children.Add(new Entry
+    {
+        Placeholder = "Enter description",
+        FontSize = 15,
+        TextColor = Colors.Black,
+        HeightRequest = 44,
+        Margin = new Thickness(6, 6),
+        Grid.Row = 1,
+        Grid.Column = Column.Description
+    });
+
+    Content.Children.Add(new Label
+    {
+        Text = "Input:",
+        Grid.Row = 0,
+        Grid.Column = Column.Input
+    });
+
+    Content.Children.Add(new Entry
+    {
+        Placeholder = "Enter input",
+        FontSize = 15,
+        TextColor = Colors.Black,
+        HeightRequest = 44,
+        Margin = new Thickness(6, 6),
+        Grid.Row = 1,
+        Grid.Column = Column.Input
+    });
+}
