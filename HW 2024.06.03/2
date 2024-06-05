@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>©Ckoreshochechek Production</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .modal__content {
+            position: relative;
+            margin: 10% auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .modal_active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                <p>Smartlanding</p>
+            </div>
+            <div class="header__buttons">
+                <button id="callback-button" class="header__button">Open</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="modal" id="modal-1">
+        <div class="modal__content">
+            <button class="modal__close-button">Close</button>
+            
+            <h1 class="modal__title">Content</h1>
+            <p class="modal__description">Link <a href="/kak-sdelat-modalnoe-okno-na-sajte.html">is here</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let callBackButton = document.getElementById('callback-button');
+            let modal1 = document.getElementById('modal-1');
+            let closeButton = modal1.querySelector('.modal__close-button');
+
+            callBackButton.onclick = function () {
+                modal1.classList.add('modal_active');
+            }
+
+            closeButton.onclick = function () {
+                modal1.classList.remove('modal_active');
+            }
+
+            modal1.onmousedown = function (e) {
+                let target = e.target;
+                let modalContent = modal1.querySelector('.modal__content');
+                if (!modalContent.contains(target)) {
+                    modal1.classList.remove('modal_active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
