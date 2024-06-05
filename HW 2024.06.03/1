@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>©Ckoreshochechek Production</title>
+</head>
+<body>
+  <form>
+    <label for="username">Enter your user name:</label>
+    <input type="text" id="username" name="username">
+    <script>
+      const usernameInput = document.getElementById('username');
+      
+      usernameInput.addEventListener('input', (e) => {
+        const currentValue = e.target.value;
+        const newValue = currentValue.replace(/\d+/g, '');
+        e.target.value = newValue;
+      });
+    </script>
+  </form>
+</body>
+</html>
