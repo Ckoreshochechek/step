@@ -1,0 +1,20 @@
+//  ©Ckoreshochechek Production
+let userName = prompt("So what is your name ?:");
+alert(`Hej, ${userName}!`);
+
+const currentYear = 2024; 
+let birthYear = parseInt(prompt("What year were you born in ? :"));
+let age = currentYear - birthYear;
+alert(`You're ${age} yo.`);
+
+//  User - "Hey Siri, check my bank ballance, and tell me what Apple product can I afford ?"
+//  Siri - "Apple jusie"
+
+let money = parseFloat(prompt("Enter how poor are you :"));
+let candyPrice = parseFloat(prompt("And what's the prise per piese:"));
+
+let candiesCount = Math.floor(money / candyPrice);
+
+let change = money - candiesCount * candyPrice;
+
+alert(`You can afford ${candiesCount} pieses, and have ${change.toFixed(2)} dkk left.`);
