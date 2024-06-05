@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>©Ckoreshochechek Production</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        body.light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        body.dark-theme {
+            background-color: #121212;
+            color: #ffffff;
+        }
+       .boxed-text {
+            border: 2px solid currentColor;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <h1>Форум</h1>
+    <button id="themeToggle">Change theme</button>
+    <div class="boxed-text">
+        <h2>Message list</h2>
+        <ul id="message-list">
+            
+        </ul>
+        <form id="message-form">
+            <label for="message">Add new message:</label>
+            <input type="text" id="message" name="message">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const currentTheme = document.body.className;
+            if (currentTheme === 'light-theme') {
+                document.body.className = 'dark-theme';
+            } else {
+                document.body.className = 'light-theme';
+            }
+        });
+
+        document.getElementById('message-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const messageInput = document.getElementById('message');
+            const messageText = messageInput.value;
+            const messageList = document.getElementById('message-list');
+            const newMessage = document.createElement('li');
+            newMessage.textContent = messageText;
+            messageList.appendChild(newMessage);
+            messageInput.value = '';
+        });
+    </script>
+</body>
+</html>
