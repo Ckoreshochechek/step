@@ -1,0 +1,55 @@
+using System;
+using System.Data;
+using System.Windows;
+using System.Windows.Controls;
+
+namespace Calculator
+{
+    public partial class MainWindow : Window
+    {
+        private string _input = "";
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            txtInput.Text = _input;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                string value = button.Content.ToString();
+                if (value == "&lt;")
+                {
+                    if (_input.Length > 0)
+                    {
+                        _input = _input.Substring(0, _input.Length - 1);
+                    }
+                }
+                else if (value == "=")
+                {
+                    try
+                    {
+                        _input = Calculate(_input).ToString();
+                    }
+                    catch
+                    {
+                        _input = "Error";
+                    }
+                }
+                else
+                {
+                    _input += value;
+                }
+                txtInput.Text = _input;
+            }
+        }
+
+        private double Calculate(string input)
+        {
+            return (double)new DataTable().Compute(input, string.Empty);
+        }
+    }
+}
