@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #2b2b2b;
+            color: #ddd;
+            font-family: Arial, sans-serif;
+        }
+        #rangeContainer {
+            display: flex;
+            align-items: center;
+        }
+        #range {
+            width: 300px;
+            height: 10px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+        #thumb {
+            position: absolute;
+            top: -5px;
+            left: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: green;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="rangeContainer">
+        <input type="range" id="range" min="0" max="100" value="50">
+        <div id="thumb"></div>
+    </div>
+
+    <script>
+        const range = document.getElementById('range');
+        const thumb = document.getElementById('thumb');
+
+        range.addEventListener('input', () => {
+            const rangeValue = range.value;
+            const thumbWidth = thumb.offsetWidth;
+            const rangeWidth = range.offsetWidth;
+
+            thumb.style.left = `${(rangeValue / 100) * (rangeWidth - thumbWidth)}px`;
+        });
+    </script>
+</body>
+</html>
