@@ -1,0 +1,21 @@
+//  ©Ckoreshochechek Production
+const usd = parseFloat(prompt('You live in Odessa, and you are poor? It's time to exchange dollars, how much do you have ?'));
+const currency = prompt('Choose beetween: EUR, UAH или DKK');
+
+let result;
+
+switch (currency) {
+  case 'Euro':
+    result = usd * 0.84;
+    break;
+  case 'Ukrainian Hryvnya':
+    result = usd * 45.5;
+    break;
+  case 'Danish krone':
+    result = usd * 6.5;
+    break;
+  default:
+    alert('WTF?');
+}
+
+alert(`You'll get ${result.toFixed(2)} ${currency}!`);
