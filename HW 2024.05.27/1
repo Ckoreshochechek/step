@@ -1,0 +1,14 @@
+//  ©Ckoreshochechek Production
+const age = parseInt(prompt('Tell me the number you got from my old programm'));
+
+if (age >= 0 && age <= 12) {
+  alert('No access for kids!');
+} else if (age > 12 && age <= 18) {
+  alert('Grown ups are not old enough to access!');
+} else if (age > 18 && age <= 60) {
+  alert('Ok, yeah, sure. Welcome you old ....!');
+} else if (age > 60) {
+  alert('Naah, man you're too old!');
+} else {
+  alert('WTF?');
+}
