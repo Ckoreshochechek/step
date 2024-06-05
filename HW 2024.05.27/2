@@ -1,0 +1,8 @@
+//  ©Ckoreshochechek Production
+const year = parseInt(prompt('What year do you live in, in your imagination ?'));
+
+if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {
+  alert('Yeps, unfortunately that shit is leap!');
+} else {
+  alert('Nope, fortunately that shit is not leap!!');
+}
