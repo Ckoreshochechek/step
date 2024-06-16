@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>©Ckoreshochechek Production's Color Palette</title>
+<style>
+  body {
+    background-color: #222;
+    color: #fff;
+    font-family: 'Impact', sans-serif;
+  }
+  #colorDisplay {
+    width: 100px;
+    height: 50px;
+    margin-top: 10px;
+    border: 1px solid #fff;
+  }
+
+</style>
+</head>
+<body>
+  <form id="colorForm">
+    <label for="colorName">Color name:</label>
+    <input type="text" id="colorName" required pattern="[A-Za-zА-Яа-я]+">
+    
+    <label for="colorType">Type:</label>
+    <select id="colorType">
+      <option value="HEX">HEX</option>
+      <option value="RGB">RGB</option>
+      <option value="RGBA">RGBA</option>
+    </select>
+    
+    <label for="colorCode">Color code:</label>
+    <input type="text" id="colorCode" required>
+    
+    <button type="submit">Save</button>
+  </form>
+
+  <div id="colorDisplay"></div>
+
+<script>
+
+function updateColorDisplay(color) {
+  var colorDisplay = document.getElementById('colorDisplay');
+  colorDisplay.style.backgroundColor = color;
+}
+
+ {
+  var now = new Date();
+  now.setTime(now.getTime() + (3 * 60 * 60 * 1000)); 
+  document.cookie = name + "=" + color + ";expires=" + now.toUTCString() + ";path=/";
+}
+
+document.getElementById('colorForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  var colorName = document.getElementById('colorName').value.trim().toLowerCase();
+  var colorType = document.getElementById('colorType').value;
+  var colorCode = document.getElementById('colorCode').value.trim();
+  
+ 
+
+  if (/* validation passes */) {
+    saveColorToCookie(colorName, colorCode);
+    updateColorDisplay(colorCode);
+  } else {
+    
+  }
+});
+
+function updateColorDisplay(color) {
+  var colorDisplay = document.getElementById('colorDisplay');
+  if (colorType === 'RGB' || colorType === 'RGBA') {
+    colorDisplay.style.backgroundColor = 'rgb(' + color + ')';
+  } else if (colorType === 'HEX') {
+    colorDisplay.style.backgroundColor = '#' + color;
+  }
+}
+
+</script>
+
+</body>
+</html>
