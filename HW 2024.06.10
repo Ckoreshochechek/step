@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphic editor by ©Ckoreshochechek Production</title>
+    <style>
+        body {
+            background-color: #2b2b2b;
+            color: #e0e0e0;
+            font-family: Impact;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #4b4b4b;
+        }
+
+        .toolbar-button {
+            background-color: #4b4b4b;
+            border: none;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px 10px;
+        }
+
+        .toolbar-button:hover {
+            background-color: #6b6b6b;
+        }
+
+        .toolbar-color-picker {
+            background-color: #4b4b4b;
+            border: none;
+            padding: 5px 10px;
+        }
+
+        .drawing-canvas-container {
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .drawing-canvas {
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <button class="toolbar-button" data-shape="rectangle">Rectangle</button>
+        <button class="toolbar-button" data-shape="circle">Circle</button>
+        <input type="color" class="toolbar-color-picker" value="#000000">
+    </div>
+    <div class="drawing-canvas-container">
+        <canvas class="drawing-canvas" width="800" height="400"></canvas>
+    </div>
+    <script>
+        const toolbarButtons = document.querySelectorAll('.toolbar-button');
+        const colorPicker = document.querySelector('.toolbar-color-picker');
+        const drawingCanvas = document.querySelector('.drawing-canvas');
+        let currentShape = null;
+        let isDrawing = false;
+
+        function drawShape(shape, x, y) {
+            if (!currentShape) {
+                currentShape = new shape(drawingCanvas, colorPicker.value);
+            }
+            currentShape.draw(x, y);
+        }
+
+        function onMouseDown(event) {
+            isDrawing = true;
+            const rect = drawingCanvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            drawShape(currentShape, x, y);
+        }
+
+        function onMouseMove(event) {
+            if (isDrawing) {
+                const rect = drawingCanvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                currentShape.update(x, y);
+            }
+        }
+
+        function onMouseUp(event) {
+                if (currentShape) {
+                    currentShape.finish();
+                }
+                currentShape = null;
+                if (button.dataset.shape === 'rectangle') {
+                    currentShape = new Rectangle(drawingCanvas, colorPicker.value);
+                } else if (button.dataset.shape === 'circle') {
+                    currentShape = new Circle(drawingCanvas, colorPicker.value);
+                }
+            });
+        });
+
+        drawingCanvas.addEventListener('mousedown', onMouseDown);
+        drawingCanvas.addEventListener('mousemove', onMouseMove);
+        drawingCanvas.addEventListener('mouseup', onMouseUp);
+
+        function Rectangle(canvas, color) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.color = color;
+            this.x = 0;
+            this.y = 0;
+            this.width = 50;
+            this.height = 50;
+
+            this.draw = (x, y) => {
+                this.ctx.fillStyle = this.color;
+                this.ctx.fillRect(x, y, this.width, this.height);
+            };
+
+            this.update = (x, y) => {
+                this.width = x - this.x;
+                this.height = y - this.y;
+                this.draw(this.x, this.y);
+            };
+
+            this.finish = () => {
+                this.ctx.fillStyle = this.color;
+                this.ctx.fillRect(this.x, this.y, this.width, this.height);
+            };
+        }
+
+        function Circle(canvas, color) {
+            this.canvas = canvas;
+            this.ctx = canvas.getContext('2d');
+            this.color = color;
+            this.x = 0;
+            this.y = 0;
+            this.radius = 25;
+
+            this.draw = (x, y) => {
+                this.ctx.fillStyle = this.color;
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, this.radius, 0, 2 * Math.PI);
+                this.ctx.fill();
+            };
+
+            this.update = (x, y) => {
+                this.radius = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
+                this.draw(this.x, this.y);
+            };
+
+            this.finish = () => {
+                this.ctx.fillStyle = this.color;
+                this.ctx.beginPath();
+                this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                this.ctx.fill();
+            };
+        }
+    </script>
+</body>
+</html>
