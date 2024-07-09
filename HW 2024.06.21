@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Search by © Ckoreshochechek Production </title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+    form {
+      margin: 20px;
+    }
+    input, select {
+      padding: 10px;
+      margin: 10px;
+    }
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    #results {
+      margin: 20px;
+    }
+    #results ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #results li {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+    }
+    #results li:hover {
+      background-color: #444;
+    }
+    #movie-details {
+      margin: 20px;
+    }
+   .loading-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      border-top: 2px solid #4CAF50;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="Enter movie title">
+    <select id="search-type">
+      <option value="movie">Movie</option>
+      <option value="series">Series</option>
+      <option value="episode">Episode</option>
+    </select>
+    <button type="submit">Search</button>
+  </form>
+  <div id="results"></div>
+  <div id="movie-details"></div>
+  <button id="more-btn">More</button>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    class MovieService {
+      async search(title, type, page) {
+        const apiUrl = 'http://www.omdbapi.com/';
+        const apiKey = 'YOUR_API_KEY_HERE'; // Replace with your OMDB API key
+        const params = {
+          '': title,
+          'type': type,
+          'page': page,
+          'apikey': apiKey
+        };
+        const response = await $.ajax({
+          url: apiUrl,
+          data: params,
+          dataType: 'json'
+        });
+        return response;
+      }
+
+      async getMovie(movieId) {
+        const apiUrl = 'http://www.omdbapi.com/';
+        const apiKey = 'b560e9a'; // Replace with your OMDB API key
+        const params = {
+          'i': movieId,
+          'apikey': apiKey
+        };
+        const response = await $.ajax({
+          url: apiUrl,
+          data: params,
+          dataType: 'json'
+        });
+        return response;
+      }
+    }
+
+    class DOMManager {
+      static renderSearchResults(data) {
+        const resultsHtml = '';
+        $.each(data.Search, function(index, item) {
+          resultsHtml += '<li>' + item.Title + '' + item.Year + ') <button class="details-btn" data-imdbid="' + item.imdbID + '">Details</button></li>';
+        });
+        $('#results').html('<ul>' + resultsHtml + '</ul>');
+      }
+
+      static renderMovieDetails(data) {
+        const detailsHtml = '<h2>' + data.Title + '</h2>';
+        detailsHtml += '<p>Year: ' data.Year + '</p>';
+        detailsHtml += '<p>Genre: ' data.Genre + '</p>';
+        detailsHtml += '<p>Director: ' data.Director + '</p>';
+        $('#movie-details').html(detailsHtml);
+      }
+
+      static showLoadingIcon(element) {
+        element.html('<div class="loading-icon"></div>');
+      }
+
+      static hideLoadingIcon(element) {
+        element.html('');
+      }
+    }
+
+    $(document).ready(function() {
+      const movieService = new MovieService();
+      let currentPage = 1;
+      let totalPages = 1;
+
+      $('#search-form').submit(async function(event) {
+    event.preventDefault();
+    const searchInput = $('#search-input').val();
+    const searchType = $('#search-type').val();
+    DOMManager.showLoadingIcon($('#results'));
+    const data = await movieService.search(searchInput, searchType, currentPage);
+    DOMManager.hideLoadingIcon($('#results'));
+    DOMManager.renderSearchResults(data);
+    totalPages = Math.ceil(data.totalResults / 10);
+    $('#more-btn').prop('disabled', false);
+  });
+
+  $('#more-btn').on('click', async function() {
+    $(this).prop('disabled', true);
+    DOMManager.showLoadingIcon($('#more-btn'));
+    const data = await movieService.search($('#search-input').val(), $('#search-type').val(), ++currentPage);
+    DOMManager.hideLoadingIcon($('#more-btn'));
+    DOMManager.renderSearchResults(data);
+    if (currentPage >= totalPages) {
+      $(this).prop('disabled', true);
+    }
+  });
+
+  $(document).on('click', '.details-btn', async function() {
+    const imdbId = $(this).data('imdbid');
+    DOMManager.showLoadingIcon($('#movie-details'));
+    const data = await movieService.getMovie(imdbId);
+    DOMManager.hideLoadingIcon($('#movie-details'));
+    DOMManager.renderMovieDetails(data);
+  });
+});
+
+
+
+
+
+
+
