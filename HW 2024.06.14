@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Search by © Ckoreshochechek Production </title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+    form {
+      margin: 20px;
+    }
+    input, select {
+      padding: 10px;
+      margin: 10px;
+    }
+    button[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+    #results {
+      margin: 20px;
+    }
+    #results ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #results li {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+    }
+    #results li:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="Enter movie title">
+    <select id="search-type">
+      <option value="movie">Movie</option>
+      <option value="series">Series</option>
+      <option value="episode">Episode</option>
+    </select>
+    <button type="submit">Search</button>
+  </form>
+  <div id="results"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#search-form').submit(function(event) {
+        event.preventDefault();
+        var searchInput = $('#search-input').val();
+        var searchType = $('#search-type').val();
+        var apiUrl = 'http://www.omdbapi.com/';
+        var apiKey = 'b560e9a'; 
+        var params = {
+          's': searchInput,
+          'type': searchType,
+          'apikey': apiKey
+        };
+
+        $.ajax({
+          url: apiUrl,
+          data: params,
+          dataType: 'json',
+          success: function(data) {
+            if (data.Response === 'True') {
+              var resultsHtml = '';
+              $.each(data.Search, function(index, item) {
+                resultsHtml += '<li>' + item.Title + ' (' + item.Year + ')</li>';
+              });
+              $('#results').html('<ul>' + resultsHtml + '</ul>');
+            } else {
+              $('#results').html('<p>Movie not found!</p>');
+            }
+          },
+          error: function(xhr, status, error) {
+            console.log('Error:', error);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
