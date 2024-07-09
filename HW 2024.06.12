@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Example</title>
+</head>
+<body>
+  <h1>JSON Example ©Ckoreshochechek Production </h1>
+  <div id="output"></div>
+
+  <script>
+    let student = {
+      name: "Nik Kornieiev",
+      age: 18,
+      courses: [
+        { course: "Math", grade: 145 },
+        { course: "Ukrainian", grade: 148 },
+        { course: "English", grade: 157 }
+      ]
+    };
+
+    let jsonString = JSON.stringify(student);
+    document.getElementById("output").innerHTML += `Original JSON: ${jsonString}<br><br>`;
+
+    let parsedStudent = JSON.parse(jsonString);
+    document.getElementById("output").innerHTML += `Parsed Student: <br>`;
+    document.getElementById("output").innerHTML += `Name: ${parsedStudent.name}<br>`;
+    document.getElementById("output").innerHTML += `Age: ${parsedStudent.age}<br>`;
+    document.getElementById("output").innerHTML += `Courses: <br>`;
+    parsedStudent.courses.forEach((course) => {
+      document.getElementById("output").innerHTML += `  - ${course.course}: ${course.grade}<br>`;
+    });
+    document.getElementById("output").innerHTML += `<br>`;
+
+    student.toJSON = function() {
+      let averageGrade = this.courses.reduce((sum, course) => sum + course.grade, 0) / this.courses.length;
+      return { name: this.name, averageGrade: averageGrade };
+    };
+
+    let customJsonString = JSON.stringify(student);
+    document.getElementById("output").innerHTML += `Custom JSON: ${customJsonString}<br>`;
+  </script>
+</body>
+</html>
